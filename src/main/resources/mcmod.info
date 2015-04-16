@@ -1,0 +1,16 @@
+[
+{
+  "modid": "CorePermissions",
+  "name": "CorePermissions",
+  "description": "Provides a permission API for restricting player actions.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["bigbass1997"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
