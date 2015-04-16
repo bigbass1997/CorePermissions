@@ -1,7 +1,9 @@
 package com.bigbass1997.coreperms.proxy;
 
-import net.minecraftforge.common.config.Configuration;
+import com.bigbass1997.coreperms.handlers.PlayerEventHandler;
 
+import net.minecraftforge.common.config.Configuration;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 public class ServerProxy extends CommonProxy {
@@ -19,7 +21,7 @@ public class ServerProxy extends CommonProxy {
 	
 	@Override
 	public void init(){
-		
+		FMLCommonHandler.instance().bus().register(new PlayerEventHandler());
 	}
 	
 	@Override
