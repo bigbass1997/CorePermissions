@@ -1,4 +1,4 @@
-# Overview
+# CorePermissions
 Minecraft ServerSide only mod that provides a permission API for player permissions.  
 (e.g limiting who can access certain commands)  
   
