@@ -8,11 +8,12 @@ public class Member {
 	private UUID uuid;
 	
 	private ArrayList<String> perms; //Player specific perms.
+	private ArrayList<Group> groups;
 	
-	public Member(UUID uuid){
+	public Member(UUID uuid, ArrayList<Group> groups, ArrayList<String> perms){
 		this.uuid = uuid;
-		
-		perms = new ArrayList<String>();
+		this.perms = perms;
+		this.groups = groups;
 	}
 	
 	public UUID getUUID(){
@@ -28,6 +29,17 @@ public class Member {
 	}
 	
 	public ArrayList<String> getPerms(){
-		return this.perms;
+		ArrayList<String> allPerms = new ArrayList<String>();
+		allPerms.addAll(this.perms);
+		
+		for(Group group : groups){
+			allPerms.addAll(PermissionsManager.getGroups().get(group.name).getPerms());
+		}
+		
+		return allPerms;
+	}
+	
+	public ArrayList<Group> getGroups(){
+		return groups;
 	}
 }

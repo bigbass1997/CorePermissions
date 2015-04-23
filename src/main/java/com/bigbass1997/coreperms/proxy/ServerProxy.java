@@ -1,8 +1,8 @@
 package com.bigbass1997.coreperms.proxy;
 
+import com.bigbass1997.coreperms.PermissionsManager;
 import com.bigbass1997.coreperms.handlers.PlayerEventHandler;
 
-import net.minecraftforge.common.config.Configuration;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
@@ -14,9 +14,7 @@ public class ServerProxy extends CommonProxy {
 	
 	@Override
 	public void preInit(FMLPreInitializationEvent e){
-		Configuration config = new Configuration(e.getSuggestedConfigurationFile());
-		
-		config.save();
+		PermissionsManager.initialize(e);
 	}
 	
 	@Override
