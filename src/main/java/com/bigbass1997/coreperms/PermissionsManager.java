@@ -27,11 +27,6 @@ public class PermissionsManager {
 		
 		populateGroups();
 		populateMembers();
-		
-		for(Member m : members.values()){
-			System.out.println(m.getUUID().toString());
-			System.out.println(m.getPerms());
-		}
 	}
 	
 	public static Map<String, Group> getGroups(){
@@ -56,11 +51,9 @@ public class PermissionsManager {
 	private static void populateMembers(){
 		JsonArray membersArray = permsJson.getAsJsonObject().getAsJsonArray("users");
 		
-		System.out.println("Members:");
 		for(JsonElement el : membersArray){
 			UUID uuid = Util.convertUUID(el.getAsJsonObject().get("uuid").getAsString());
 			
-			System.out.println(uuid);
 			ArrayList<Group> memberGroups = new ArrayList<Group>();
 			for(JsonElement group : el.getAsJsonObject().get("groups").getAsJsonArray()){
 				memberGroups.add(groups.get(group.getAsString()));

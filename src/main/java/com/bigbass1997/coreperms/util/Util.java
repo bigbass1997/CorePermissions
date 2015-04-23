@@ -1,9 +1,11 @@
 package com.bigbass1997.coreperms.util;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.UUID;
@@ -42,13 +44,14 @@ public class Util {
 	
 	public static ChatComponentText getChatComponent(String s){
 		return new ChatComponentText(s);
-		//TODO Add chat formating (e.g. colors etc)
 	}
 	
 	/**
 	 * @author http://stackoverflow.com/a/19459884/4816410
+	 * @author bigbass1997
+	 * 
 	 * @param path
-	 * @return aBuffer or null
+	 * @return textFromFile or null
 	 */
 	public static String readFile(String path){
 		try {
@@ -66,7 +69,9 @@ public class Util {
 
 			return aBuffer;
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			Util.log.info("Permissions file not found! Creating default file.");
+			createDefaultPermsConfig(path);
+			return readFile(path);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -74,14 +79,36 @@ public class Util {
 		return null;
 	}
 	
+	private static void createDefaultPermsConfig(String path){
+		try {
+			File file = new File(path);
+			file.createNewFile();
+
+			FileWriter fw = new FileWriter(file.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(DefaultConfig.permsConfig);
+			bw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static UUID convertUUID(String uuid){
-		String set1 = uuid.substring(0, 7);
-		String set2 = uuid.substring(8, 11);
-		String set3 = uuid.substring(12, 15);
-		String set4 = uuid.substring(16, 19);
-		String set5 = uuid.substring(20);
-		
-		String DASH = "-";
-		return UUID.fromString(set1 + DASH + set2 + DASH + set3 + DASH + set4 + DASH + set5);
+		if(uuid.length() != 32 && uuid.length() != 36){
+			Util.log.warn("Util.convertUUID() invalid uuid: " + uuid);
+			return null;
+		}
+		if(!uuid.contains("-")){
+			String set1 = uuid.substring(0, 7);
+			String set2 = uuid.substring(8, 11);
+			String set3 = uuid.substring(12, 15);
+			String set4 = uuid.substring(16, 19);
+			String set5 = uuid.substring(20);
+			
+			String DASH = "-";
+			return UUID.fromString(set1 + DASH + set2 + DASH + set3 + DASH + set4 + DASH + set5);
+		} else {
+			return UUID.fromString(uuid);
+		}
 	}
 }
