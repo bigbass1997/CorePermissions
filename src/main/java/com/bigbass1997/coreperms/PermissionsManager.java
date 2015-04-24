@@ -54,6 +54,10 @@ public class PermissionsManager {
 		return groups;
 	}
 	
+	public static Map<UUID, Member> getMembers(){
+		return members;
+	}
+	
 	private static void populateGroups(){
 		JsonArray groupsArray = permsJson.getAsJsonObject().getAsJsonArray("groups");
 		
