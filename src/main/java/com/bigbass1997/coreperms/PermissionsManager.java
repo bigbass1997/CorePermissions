@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import net.minecraft.command.ICommandSender;
+
 import com.bigbass1997.coreperms.util.Util;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -15,18 +17,37 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 public class PermissionsManager {
 	
 	private static JsonElement permsJson;
+	private static String permsConfigPath;
 	
 	private static Map<String, Group> groups;
 	private static Map<UUID, Member> members;
 	
 	public static void initialize(FMLPreInitializationEvent e){
-		permsJson = new JsonParser().parse(Util.readFile(e.getModConfigurationDirectory() + "/permissions.json"));
+		permsConfigPath = e.getModConfigurationDirectory() + "/permissions.json";
+		permsJson = new JsonParser().parse(Util.readFile(permsConfigPath));
 		
 		groups = new HashMap<String, Group>();
 		members = new HashMap<UUID, Member>();
 		
 		populateGroups();
 		populateMembers();
+	}
+	
+	public static boolean hasPermission(String node, ICommandSender sender){
+		String senderName = sender.getCommandSenderName();
+		
+		if(senderName.equalsIgnoreCase("server")) return true;
+		if(hasPermission(node, sender.getEntityWorld().getPlayerEntityByName(senderName).getPersistentID())) return true;
+		
+		return false;
+	}
+	
+	public static boolean hasPermission(String node, UUID uuid){
+		if(uuid.equals("console")) return true;
+		
+		Member member = members.get(uuid);
+		
+		return member.getPerms().contains(node);
 	}
 	
 	public static Map<String, Group> getGroups(){
@@ -70,5 +91,15 @@ public class PermissionsManager {
 	
 	public ArrayList<Group> getPlayerGroups(UUID uuid){
 		return members.get(uuid).getGroups();
+	}
+	
+	public static void reloadPerms(){
+		permsJson = new JsonParser().parse(Util.readFile(permsConfigPath));
+		
+		groups.clear();
+		members.clear();
+		
+		populateGroups();
+		populateMembers();
 	}
 }

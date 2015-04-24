@@ -1,6 +1,10 @@
 package com.bigbass1997.coreperms.proxy;
 
+import net.minecraft.command.CommandHandler;
+import net.minecraft.server.MinecraftServer;
+
 import com.bigbass1997.coreperms.PermissionsManager;
+import com.bigbass1997.coreperms.commands.CommandReloadPerms;
 import com.bigbass1997.coreperms.handlers.PlayerEventHandler;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -20,6 +24,9 @@ public class ServerProxy extends CommonProxy {
 	@Override
 	public void init(){
 		FMLCommonHandler.instance().bus().register(new PlayerEventHandler());
+		
+		CommandHandler ch = (CommandHandler) MinecraftServer.getServer().getCommandManager();
+		ch.registerCommand(new CommandReloadPerms());
 	}
 	
 	@Override
