@@ -10,10 +10,11 @@ public class Group {
 	
 	private String prefix, suffix;
 	
-	public Group(String name, ArrayList<String> perms){
+	public Group(String name, ArrayList<String> perms, String prefix, String suffix){
 		this.name = name;
-
-		prefix = suffix = "";
+		
+		this.prefix = prefix;
+		this.suffix = suffix;
 		
 		this.perms = new ArrayList<String>();
 		this.perms.addAll(perms);
@@ -21,14 +22,6 @@ public class Group {
 	
 	public String getChatTag(){
 		return prefix.concat(name).concat(suffix);
-	}
-	
-	public void setPrefix(String prefix){
-		this.prefix = prefix;
-	}
-	
-	public void setSuffix(String suffix){
-		this.suffix = suffix;
 	}
 	
 	public ArrayList<String> getPerms(){

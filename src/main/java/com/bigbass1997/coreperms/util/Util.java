@@ -99,14 +99,16 @@ public class Util {
 			return null;
 		}
 		if(!uuid.contains("-")){
-			String set1 = uuid.substring(0, 7);
-			String set2 = uuid.substring(8, 11);
-			String set3 = uuid.substring(12, 15);
-			String set4 = uuid.substring(16, 19);
+			String set1 = uuid.substring(0, 8);
+			String set2 = uuid.substring(8, 12);
+			String set3 = uuid.substring(12, 16);
+			String set4 = uuid.substring(16, 20);
 			String set5 = uuid.substring(20);
 			
 			String DASH = "-";
-			return UUID.fromString(set1 + DASH + set2 + DASH + set3 + DASH + set4 + DASH + set5);
+			String s = set1 + DASH + set2 + DASH + set3 + DASH + set4 + DASH + set5;
+			
+			return UUID.fromString(s);
 		} else {
 			return UUID.fromString(uuid);
 		}

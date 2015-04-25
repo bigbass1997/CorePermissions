@@ -69,7 +69,10 @@ public class PermissionsManager {
 				groupPerms.add(s.getAsString());
 			}
 			
-			groups.put(groupName, new Group(groupName, groupPerms));
+			String pre = el.getAsJsonObject().get("prefix").getAsString();
+			String suf = el.getAsJsonObject().get("suffix").getAsString();
+			
+			groups.put(groupName, new Group(groupName, groupPerms, pre, suf));
 		}
 	}
 	
@@ -78,6 +81,8 @@ public class PermissionsManager {
 		
 		for(JsonElement el : membersArray){
 			UUID uuid = Util.convertUUID(el.getAsJsonObject().get("uuid").getAsString());
+			System.out.println(el.getAsJsonObject().get("uuid").getAsString());
+			System.out.println(uuid);
 			
 			ArrayList<Group> memberGroups = new ArrayList<Group>();
 			for(JsonElement group : el.getAsJsonObject().get("groups").getAsJsonArray()){

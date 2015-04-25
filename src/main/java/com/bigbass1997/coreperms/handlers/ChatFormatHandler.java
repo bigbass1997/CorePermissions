@@ -11,7 +11,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraftforge.event.ServerChatEvent;
 
-public class PlayerEventHandler {
+public class ChatFormatHandler {
 	
 	@SubscribeEvent
 	public void onServerChat(ServerChatEvent e){
@@ -20,11 +20,20 @@ public class PlayerEventHandler {
 		UUID uuid = e.player.getPersistentID();
 		Member member = PermissionsManager.getMembers().get(uuid);
 		
+		System.out.println(PermissionsManager.getMembers().toString());
+		
+		System.out.println(username);
+		System.out.println(uuid);
+		System.out.println(member);
+		System.out.println(member.getUUID().toString());
+		System.out.println(member.getPerms());
+		System.out.println(member.getGroups());
+		
 		ArrayList<Group> groups = member.getGroups();
 		
 		String tags = "";
 		for(Group group : groups){
-			tags.concat(group.getChatTag());
+			tags = tags.concat(group.getChatTag());
 		}
 		
 		e.component = new ChatComponentTranslation(tags + "[" + username + "] " + message);
