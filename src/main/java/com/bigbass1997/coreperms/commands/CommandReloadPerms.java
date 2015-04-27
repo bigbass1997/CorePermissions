@@ -23,6 +23,8 @@ public class CommandReloadPerms extends CommandBase {
 		if(PermissionsManager.hasPermission("cp.reload", sender)){
 			PermissionsManager.reloadPerms();
 			sender.addChatMessage(Util.getChatComponent("CorePermissions Permissions Config Reloaded!"));
+		} else {
+			sender.addChatMessage(Util.getChatComponent(PermissionsManager.NO_COMMAND_PERMS));
 		}
 	}
 

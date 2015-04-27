@@ -16,6 +16,8 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 public class PermissionsManager {
 	
+	public static final String NO_COMMAND_PERMS = "You do not have permission to use that command!";
+	
 	private static JsonElement permsJson;
 	private static String permsConfigPath;
 	
@@ -33,6 +35,13 @@ public class PermissionsManager {
 		populateMembers();
 	}
 	
+	/**
+	 * Use this to check if a command sender has permission to execute the command based on the provided node.
+	 * 
+	 * @param node Permission Node (e.g. "mod.commandname")
+	 * @param sender Person who executed the command
+	 * @return true if command sender has the provided permission node
+	 */
 	public static boolean hasPermission(String node, ICommandSender sender){
 		String senderName = sender.getCommandSenderName();
 		
@@ -42,6 +51,13 @@ public class PermissionsManager {
 		return false;
 	}
 	
+	/**
+	 * Almost identical to hasPermission(String node, ICommandSender sender) except that you need to pass a UUID instead of a command sender.
+	 * 
+	 * @param node Permission Node (e.g. "mod.commandname")
+	 * @param uuid UUID of player
+	 * @return true of player has the permission node provided
+	 */
 	public static boolean hasPermission(String node, UUID uuid){
 		if(uuid.equals("console")) return true;
 		
