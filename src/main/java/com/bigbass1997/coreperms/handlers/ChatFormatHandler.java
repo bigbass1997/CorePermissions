@@ -20,15 +20,6 @@ public class ChatFormatHandler {
 		UUID uuid = e.player.getPersistentID();
 		Member member = PermissionsManager.getMembers().get(uuid);
 		
-		System.out.println(PermissionsManager.getMembers().toString());
-		
-		System.out.println(username);
-		System.out.println(uuid);
-		System.out.println(member);
-		System.out.println(member.getUUID().toString());
-		System.out.println(member.getPerms());
-		System.out.println(member.getGroups());
-		
 		ArrayList<Group> groups = member.getGroups();
 		
 		String tags = "";
