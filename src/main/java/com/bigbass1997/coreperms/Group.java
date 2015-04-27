@@ -10,18 +10,23 @@ public class Group {
 	
 	private String prefix, suffix;
 	
-	public Group(String name, ArrayList<String> perms, String prefix, String suffix){
+	private boolean showTag;
+	
+	public Group(String name, ArrayList<String> perms, String prefix, String suffix, boolean showTag){
 		this.name = name;
 		
 		this.prefix = prefix;
 		this.suffix = suffix;
+		
+		this.showTag = showTag;
 		
 		this.perms = new ArrayList<String>();
 		this.perms.addAll(perms);
 	}
 	
 	public String getChatTag(){
-		return prefix.concat(name).concat(suffix);
+		if(showTag) return prefix.concat(name).concat(suffix);
+		else return "";
 	}
 	
 	public ArrayList<String> getPerms(){

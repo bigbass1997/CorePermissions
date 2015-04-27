@@ -88,7 +88,9 @@ public class PermissionsManager {
 			String pre = el.getAsJsonObject().get("prefix").getAsString();
 			String suf = el.getAsJsonObject().get("suffix").getAsString();
 			
-			groups.put(groupName, new Group(groupName, groupPerms, pre, suf));
+			boolean showTag = el.getAsJsonObject().get("showTag").getAsBoolean();
+			
+			groups.put(groupName, new Group(groupName, groupPerms, pre, suf, showTag));
 		}
 	}
 	
