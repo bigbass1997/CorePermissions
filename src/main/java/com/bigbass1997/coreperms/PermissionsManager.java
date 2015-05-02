@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import net.minecraft.command.ICommandSender;
 
+import com.bigbass1997.coreperms.handlers.ChatFormatHandler;
 import com.bigbass1997.coreperms.util.Util;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -33,6 +34,9 @@ public class PermissionsManager {
 		
 		populateGroups();
 		populateMembers();
+		
+		ChatFormatHandler.userPrefix = permsJson.getAsJsonObject().get("userPrefix").getAsString();
+		ChatFormatHandler.userSuffix = permsJson.getAsJsonObject().get("userSuffix").getAsString();
 	}
 	
 	/**

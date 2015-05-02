@@ -13,6 +13,8 @@ import net.minecraftforge.event.ServerChatEvent;
 
 public class ChatFormatHandler {
 	
+	public static String userPrefix = "[", userSuffix = "] ";
+	
 	@SubscribeEvent
 	public void onServerChat(ServerChatEvent e){
 		String message = e.message;
@@ -27,6 +29,6 @@ public class ChatFormatHandler {
 			tags = tags.concat(group.getChatTag());
 		}
 		
-		e.component = new ChatComponentTranslation(tags + "[" + username + "] " + message);
+		e.component = new ChatComponentTranslation(tags + userPrefix + username + userSuffix + message);
 	}
 }
