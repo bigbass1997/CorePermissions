@@ -66,6 +66,12 @@ public class PermissionsManager {
 		if(uuid.equals("console")) return true;
 		
 		Member member = members.get(uuid);
+
+		if(member == null){
+			return false;
+		}else{
+			if(member.getPerms().isEmpty()) return false;
+		}
 		
 		return member.getPerms().contains(node);
 	}
