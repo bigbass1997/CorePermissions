@@ -22,6 +22,10 @@ public class ChatFormatHandler {
 		UUID uuid = e.player.getPersistentID();
 		Member member = PermissionsManager.getMembers().get(uuid);
 		
+		if(member == null){
+			e.component = new ChatComponentTranslation(userPrefix + username + userSuffix + message);
+		}
+		
 		ArrayList<Group> groups = member.getGroups();
 		
 		String tags = "";
