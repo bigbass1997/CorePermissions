@@ -138,5 +138,8 @@ public class PermissionsManager {
 		
 		populateGroups();
 		populateMembers();
+		
+		ChatFormatHandler.userPrefix = permsJson.getAsJsonObject().get("userPrefix").getAsString();
+		ChatFormatHandler.userSuffix = permsJson.getAsJsonObject().get("userSuffix").getAsString();
 	}
 }

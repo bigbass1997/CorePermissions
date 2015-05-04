@@ -24,6 +24,7 @@ public class ChatFormatHandler {
 		
 		if(member == null){
 			e.component = new ChatComponentTranslation(userPrefix + username + userSuffix + message);
+			return;
 		}
 		
 		ArrayList<Group> groups = member.getGroups();
