@@ -34,6 +34,6 @@ public class ChatFormatHandler {
 			tags = tags.concat(group.getChatTag());
 		}
 		
-		e.component = new ChatComponentTranslation(tags + userPrefix + username + userSuffix + message);
+		e.component = new ChatComponentTranslation("%s%s%s%s%s", tags, userPrefix, username, userSuffix, message);
 	}
 }
