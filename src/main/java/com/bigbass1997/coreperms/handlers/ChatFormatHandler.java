@@ -6,6 +6,7 @@ import java.util.UUID;
 import com.bigbass1997.coreperms.Group;
 import com.bigbass1997.coreperms.Member;
 import com.bigbass1997.coreperms.PermissionsManager;
+import com.bigbass1997.coreperms.util.Util;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.util.ChatComponentTranslation;
@@ -34,6 +35,6 @@ public class ChatFormatHandler {
 			tags = tags.concat(group.getChatTag());
 		}
 		
-		e.component = new ChatComponentTranslation("%s%s%s%s%s", tags, userPrefix, username, userSuffix, message);
+		e.component = new ChatComponentTranslation("%s%s%s", Util.getChatComponent(tags), Util.getChatComponent(userPrefix + username + userSuffix), Util.getChatComponent(message));
 	}
 }
