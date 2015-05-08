@@ -17,7 +17,12 @@ public class CommandReloadPerms extends CommandBase {
 	public String getCommandUsage(ICommandSender sender) {
 		return "/reloadperms";
 	}
-
+	
+	@Override
+    public boolean canCommandSenderUseCommand(ICommandSender sender){
+        return true;
+    }
+	
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) {
 		if(PermissionsManager.hasPermission("cp.reload", sender)){

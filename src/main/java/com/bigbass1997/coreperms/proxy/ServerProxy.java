@@ -5,6 +5,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.bigbass1997.coreperms.PermissionsManager;
+import com.bigbass1997.coreperms.commands.CommandGetPerms;
 import com.bigbass1997.coreperms.commands.CommandReloadPerms;
 import com.bigbass1997.coreperms.handlers.ChatFormatHandler;
 
@@ -27,6 +28,7 @@ public class ServerProxy extends CommonProxy {
 		
 		CommandHandler ch = (CommandHandler) MinecraftServer.getServer().getCommandManager();
 		ch.registerCommand(new CommandReloadPerms());
+		ch.registerCommand(new CommandGetPerms());
 	}
 	
 	@Override
