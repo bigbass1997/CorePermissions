@@ -24,7 +24,7 @@ public class ChatFormatHandler {
 		Member member = PermissionsManager.getMembers().get(uuid);
 		
 		if(member == null){
-			e.component = new ChatComponentTranslation(userPrefix + username + userSuffix + message);
+			e.component = new ChatComponentTranslation("%s%s", Util.getChatComponent(userPrefix + username + userSuffix), Util.getChatComponent(message));
 			return;
 		}
 		
