@@ -9,9 +9,9 @@ import net.minecraft.command.ICommandSender;
 
 import com.bigbass1997.coreperms.handlers.ChatFormatHandler;
 import com.bigbass1997.coreperms.util.Util;
+import com.bigbass1997.coreperms.ConfigManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
@@ -19,15 +19,13 @@ public class PermissionsManager {
 	
 	public static final String NO_COMMAND_PERMS = "You do not have permission to use that command!";
 	
-	private static JsonElement permsJson;
-	private static String permsConfigPath;
+	private static JsonElement configJson;
 	
 	private static Map<String, Group> groups;
 	private static Map<UUID, Member> members;
 	
 	public static void initialize(FMLPreInitializationEvent e){
-		permsConfigPath = e.getModConfigurationDirectory() + "/permissions.json";
-		permsJson = new JsonParser().parse(Util.readFile(permsConfigPath));
+		configJson = ConfigManager.configJson;
 		
 		groups = new HashMap<String, Group>();
 		members = new HashMap<UUID, Member>();
@@ -35,8 +33,8 @@ public class PermissionsManager {
 		populateGroups();
 		populateMembers();
 		
-		ChatFormatHandler.userPrefix = permsJson.getAsJsonObject().get("userPrefix").getAsString();
-		ChatFormatHandler.userSuffix = permsJson.getAsJsonObject().get("userSuffix").getAsString();
+		ChatFormatHandler.userPrefix = configJson.getAsJsonObject().get("userPrefix").getAsString();
+		ChatFormatHandler.userSuffix = configJson.getAsJsonObject().get("userSuffix").getAsString();
 	}
 	
 	/**
@@ -85,7 +83,7 @@ public class PermissionsManager {
 	}
 	
 	private static void populateGroups(){
-		JsonArray groupsArray = permsJson.getAsJsonObject().getAsJsonArray("groups");
+		JsonArray groupsArray = configJson.getAsJsonObject().getAsJsonArray("groups");
 		
 		for(JsonElement el : groupsArray){
 			String groupName = el.getAsJsonObject().get("name").getAsString();
@@ -105,7 +103,7 @@ public class PermissionsManager {
 	}
 	
 	private static void populateMembers(){
-		JsonArray membersArray = permsJson.getAsJsonObject().getAsJsonArray("users");
+		JsonArray membersArray = configJson.getAsJsonObject().getAsJsonArray("users");
 		
 		for(JsonElement el : membersArray){
 			UUID uuid = Util.convertUUID(el.getAsJsonObject().get("uuid").getAsString());
@@ -131,7 +129,8 @@ public class PermissionsManager {
 	}
 	
 	public static void reloadPerms(){
-		permsJson = new JsonParser().parse(Util.readFile(permsConfigPath));
+		ConfigManager.reloadConfig();
+		configJson = ConfigManager.configJson;
 		
 		groups.clear();
 		members.clear();
@@ -139,7 +138,7 @@ public class PermissionsManager {
 		populateGroups();
 		populateMembers();
 		
-		ChatFormatHandler.userPrefix = permsJson.getAsJsonObject().get("userPrefix").getAsString();
-		ChatFormatHandler.userSuffix = permsJson.getAsJsonObject().get("userSuffix").getAsString();
+		ChatFormatHandler.userPrefix = configJson.getAsJsonObject().get("userPrefix").getAsString();
+		ChatFormatHandler.userSuffix = configJson.getAsJsonObject().get("userSuffix").getAsString();
 	}
 }

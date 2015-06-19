@@ -1,13 +1,5 @@
 package com.bigbass1997.coreperms.util;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.UUID;
 
 import net.minecraft.block.Block;
@@ -16,11 +8,11 @@ import net.minecraft.util.ChatComponentText;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.bigbass1997.coreperms.ConfigManager;
+
 public class Util {
 	
 	public static final Logger log = LogManager.getLogger("Overview");
-	
-	public static final boolean debug = false;
 	
 	public static String getBlockName(Block block){
 		String blockname = "null";
@@ -28,14 +20,14 @@ public class Util {
 		try {
 			blockname = block.getLocalizedName();
 		} catch (NoSuchMethodError error){
-			if(debug) error.printStackTrace();
+			if(ConfigManager.debug) error.printStackTrace();
 		}
 		
 		if(blockname == "null"){
 			try {
 				blockname = block.getUnlocalizedName();
 			} catch (NoSuchMethodError error){
-				if(debug) error.printStackTrace();
+				if(ConfigManager.debug) error.printStackTrace();
 			}
 		}
 		
@@ -44,53 +36,6 @@ public class Util {
 	
 	public static ChatComponentText getChatComponent(String s){
 		return new ChatComponentText(s);
-	}
-	
-	/**
-	 * @author http://stackoverflow.com/a/19459884/4816410
-	 * @author bigbass1997
-	 * 
-	 * @param path
-	 * @return textFromFile or null
-	 */
-	public static String readFile(String path){
-		try {
-			File myFile = new File(path);
-	        FileInputStream fIn;
-			fIn = new FileInputStream(myFile);
-			BufferedReader myReader = new BufferedReader(new InputStreamReader(fIn));
-	        String aDataRow = "";
-	        String aBuffer = "";
-	        while ((aDataRow = myReader.readLine()) != null) 
-	        {
-	            aBuffer += aDataRow ;
-	        }
-	        myReader.close();
-
-			return aBuffer;
-		} catch (FileNotFoundException e) {
-			Util.log.info("Permissions file not found! Creating default file.");
-			createDefaultPermsConfig(path);
-			return readFile(path);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
-	
-	private static void createDefaultPermsConfig(String path){
-		try {
-			File file = new File(path);
-			file.createNewFile();
-
-			FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(DefaultConfig.permsConfig);
-			bw.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public static UUID convertUUID(String uuid){

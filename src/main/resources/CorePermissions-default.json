@@ -1,0 +1,46 @@
+{
+	"groups": [
+		{
+			"name": "Owner",
+			"showTag": true,
+			"prefix": "§c[",
+			"suffix": "]§f",
+			"perms": [
+				"cp.reload"
+			]
+		},
+		{
+			"name": "Admin",
+			"showTag": true,
+			"prefix": "§b[",
+			"suffix": "]§f",
+			"perms": [
+				"cp.reload"
+			]
+		},
+		{
+			"name": "Dev",
+			"showTag": true,
+			"prefix": "§e[",
+			"suffix": "]§f",
+			"perms": [
+				
+			]
+		}
+	],
+
+	"users": [
+		{
+			"uuid": "5719f8d6b2824a2389025a605c06daed",
+			"groups": ["Admin", "Dev"],
+			"perms": [
+				
+			]
+		}
+	],
+	
+	"userPrefix": "[§7",
+	"userSuffix": "§f] ",
+	
+	"debug": false
+}
