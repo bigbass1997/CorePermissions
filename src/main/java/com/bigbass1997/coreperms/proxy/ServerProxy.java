@@ -4,6 +4,7 @@ import net.minecraft.command.CommandHandler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
 
+import com.bigbass1997.coreperms.ConfigManager;
 import com.bigbass1997.coreperms.PermissionsManager;
 import com.bigbass1997.coreperms.commands.CommandGetPerms;
 import com.bigbass1997.coreperms.commands.CommandReloadPerms;
@@ -19,6 +20,7 @@ public class ServerProxy extends CommonProxy {
 	
 	@Override
 	public void preInit(FMLPreInitializationEvent e){
+		ConfigManager.loadConfig(e);
 		PermissionsManager.initialize(e);
 	}
 	
